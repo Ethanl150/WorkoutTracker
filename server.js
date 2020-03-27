@@ -5,8 +5,7 @@ const path = require("path")
 
 const PORT = process.env.PORT || 3000;
 
-const db = require("./models");
-// const Exercise = require("./models/exerciseModel");
+const Workout = require("./models/workoutModel.js");
 
 const app = express();
 
@@ -24,37 +23,36 @@ app.get("/", (req, res) => {
 })
 
 app.get("/stats", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/stats.html"))
-    // res.sendFile(path.join(__dirname, '../public', 'index1.html'));
+    res.sendFile(path.join(__dirname, "public/stats.html"));
 })
 
 app.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/exercise.html"))
+    res.sendFile(path.join(__dirname, "public/exercise.html"));
 })
 
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, (err, data) => {
+    Workout.find({}, (err, data) => {
         res.json(data)
     })
 })
 
 app.post("/api/workouts", (req, res) => {
     console.log(req.body)
-    db.Workout.create(req.body, (err, data) => {
+    Workout.create(req.body, (err, data) => {
         if (err) throw err;
         res.json(data)
     })
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.update({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {exercises: req.body}}, (err, data) => {
+    Workout.update({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {exercises: req.body}}, (err, data) => {
         if (err) throw err;
         res.json(data)
     })
 })
 
 app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({}, (err, data) => {
+    Workout.find({}, (err, data) => {
         res.json(data)
     })
 })
