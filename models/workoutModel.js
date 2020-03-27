@@ -28,8 +28,6 @@ const WorkoutSchema = new Schema({
     }]
 })
 
-// name, type, weight, sets, reps, and duration of exercise DISTANCE
-
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;
